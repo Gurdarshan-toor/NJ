@@ -394,3 +394,262 @@
   ]
 }
 {%- endschema -%}
+
+
+=================================== Banner section =====================================
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slide on mousehover</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
+  <style>
+    .section_contanor {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    .section_row {
+        display: flex;
+        /* gap: 20px; */
+        justify-content: center;
+        background-color: #000;
+    }
+    .togglebox {
+        /* flex-shrink: 0;
+        flex-grow: 0;
+        width: 150px; */
+        transition: all 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        box-shadow: 3px 3px 15px 4px #000;
+        background-position: center;
+        background-size: cover;
+    }
+    .togglebox.active {
+        flex-grow: 10000;
+        width: unset;
+        min-width: 300px;
+        filter: none;
+    }
+    .image_first {
+        /* background-image: url("https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_960_720.jpg"); */
+        height: 85vh;
+    }
+    .image_second {
+        /* background-image: url("https://media.istockphoto.com/id/1451754987/photo/new-york-city-skyline-at-sunset-with-brooklyn-bridge-and-lower-manhattan.webp?b=1&s=612x612&w=0&k=20&c=DdNq0FjnyvDhHo5__aGzgmS8L3LgEJ3_3JSA0LxST3M="); */
+        height: 85vh;
+    }
+    .image_third {
+        /* background-image: url("https://cdn.pixabay.com/photo/2020/05/04/16/05/mckenzie-river-5129717_640.jpg"); */
+        height: 85vh;
+    }
+    .image_fifth {
+        /* background-image: url("https://cdn.pixabay.com/photo/2017/04/08/10/42/burj-khalifa-2212978_1280.jpg"); */
+        height: 85vh;
+    }
+  .image_heading {
+    color:  {{ section.settings.text_color }} ;
+    display: none;
+    width: 100%;
+    /* max-width: 40%; */
+    padding: 20rem 5rem;
+}
+    .image_heading h2 {
+        font-size: 40px;
+        color:  {{ section.settings.text_color }};
+    }
+    .image_heading p {
+        color: {{ section.settings.text_color }};
+        font-weight: 700;
+        font-size: 20px;
+    }
+    .image_button a {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+        text-decoration: none;
+        background: #fff;
+        padding: 13px 25px;
+    }
+    .image_button {
+        margin-top: 70px;
+    }
+  .image_heading {
+      display: none;
+  }
+  .active .image_heading {
+      display: block !important;
+  }
+  .togglebox {
+      flex: 0 0 10%;
+  }
+     @media only screen and (min-width: 768px) {
+        .image_heading {
+      display: none;
+  }
+     }
+  @media only screen and (max-width: 767px) {
+    .image_heading {
+       padding: 2rem 5rem;
+  }
+  .togglebox {
+    height: 75vh;
+}
+.active .image_heading {
+      display: block !important;
+  }
+  .image_heading {
+      display: block;
+  }
+  .slick-dots li.slick-active button:before {
+    font-size: 20px;
+}
+.slick-dots li button:before {
+    font-size: 10px;
+}
+}
+  </style>
+</head>
+<body>
+  <div class="section_contanor">
+        <div class="section_row single-item {{ section.settings.image_height }}">
+            {%  for block in section.blocks %}
+              <div style=" background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{{ block.settings.image | img_url:'master' }}'); background-size: cover; background-position: center;" class="image_first togglebox {{ forloop.index }} {% if forloop.first %} active {% endif %}" >
+                  <div class="imagesection">
+                    <div class="image_heading">
+                      <p>{{ block.settings.caption }}</p>
+                      <h2>{{ block.settings.heading }}</h2>
+                      <p>{{ block.settings.text }}</p>
+                      <div class="image_button"><a href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a></div>
+                    </div>
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <script>
+    let boxes = document.querySelectorAll(".togglebox");
+  boxes.forEach(box => {
+    box.addEventListener("mouseover", (e) => {
+        boxes.forEach(tbox => {
+            tbox.classList.remove("active");
+        });
+        box.classList.toggle("active");
+        lbox = e.target;
+    });
+  });
+  $(document).ready(function () {
+    if ($(window).width() < 768) {
+      $('.single-item').slick({
+        dots: true,
+      });
+    }
+  });
+      /* $(window).on('resize', function() {
+    if ($(window).width() === 767) {
+      $('.single-item').slick('refresh');
+    }
+  }); */
+  </script>
+  </body>
+</html>
+{% schema %}
+{
+  "name": "slide on hover",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+  "type": "color",
+  "id": "text_color",
+  "label": "Text color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "t:sections.multirow.blocks.row.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multirow.blocks.row.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "default": "Caption",
+          "label": "t:sections.multirow.blocks.row.settings.caption.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Row",
+          "label": "t:sections.multirow.blocks.row.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "t:sections.multirow.blocks.row.settings.text.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.multirow.blocks.row.settings.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.multirow.blocks.row.settings.button_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "slide on hover",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+//////////////////////////////////////////////////
