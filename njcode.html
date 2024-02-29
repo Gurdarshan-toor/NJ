@@ -935,3 +935,282 @@
 {% endschema %}
 
 ///////////////////////////////////////////////////////////////////
+
+=========== Tab section ==========================
+
+<section class="New_tab_section">
+
+  <div class="tab_header-container">
+    <h3>Hot Sale Colection</h3>
+    <p>Check out our latest arrivals for the upcoming season</p>
+  </div>
+  <div class="tab_head">
+    {% for block in section.blocks %}
+      <div class="cus_tab" data-tabdata="tab-{{ forloop.index }}">{{ block.settings.collection.title }}</div>
+    {% endfor %}
+  </div>
+  
+  <div class="tab_content">
+    {% for block in section.blocks %}
+    <div class="tab-content-slide {% if forloop.first %} active {% endif %}" id="tab-{{ forloop.index }}">
+      {% assign collection = block.settings.collection.products %}
+        {% for product in collection %}
+          <div class="prd_img">
+              <a href="{{ product.url }}">
+              <img src=" {{ product.featured_image |  img_url: 'master' }}" alt="{{ product.title }}">
+              <p class="p_title">{{ product.title }}</p>
+              <p class="p_price">{{ product.price |  money }}</p>
+              </a>
+            </div>
+          {% endfor %}
+          </div>
+  {% endfor %}
+  </div>
+  
+  
+    
+  </section>
+  
+  
+  <style>
+  
+  .tab_head {
+      display: flex;
+      justify-content:flex-start;
+      gap: 10px;
+      margin-bottom: 3rem;
+  }
+  
+  p.p_price {
+      margin: 0;
+      font-size: 18px;
+      color: #56362c;
+  }
+  
+  p.p_title {
+      margin: 5px;
+      color: #56362c;
+      font-size: 18px;
+      text-transform: capitalize;
+  }
+  
+  .tab_content .tab-content-slide{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* transition: all 0.9s ease-in-out; */
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .prd_img img {
+      height: 100%;
+      width: 100%;
+      display: block;
+  }
+  
+  section.New_tab_section {
+      padding: 50px;
+      background-color: #FFF8F4;
+  }
+  
+  .prd_img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin-inline: 8px;
+  }
+  
+  .prd_img a {
+      text-decoration: none;
+  }
+  
+  .tab_content .active{
+    opacity: 1;
+    visibility:visible;
+    pointer-events:all;
+    transition: all 0.9s ease-in-out;
+    height: 100%;
+    overflow:hidden;
+  }
+  
+  .cus_tab {
+      /* background: black; */
+      /* color: white; */
+      /* padding: 10px 50px; */
+      /* margin: 10px; */
+      /* border-radius: 5px; */
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #56362c;
+      position: relative;
+  }
+  
+  .cus_tab:hover:before{
+    width: 100%;
+    /* opacity: 1;
+    visibility:visible; */
+  }
+  
+  .cus_tab:first-child:before {
+      content: unset;
+  }
+  
+  .cus_tab:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: #56362c;
+      width:0%;
+      /* opacity: 0;
+      visibility: hidden; */
+      transition: all 0.9s ease-in-out;
+  }
+  
+  .cus_tab:first-child {
+      border-bottom: 2px solid #56362c;
+  }
+  
+  .tab_header-container p {
+      color: #56362c;
+      font-weight: 600;
+  }
+  
+  .tab_header-container h3 {
+      font-size: 34px;
+      text-transform: capitalize;
+      font-weight: 600;
+      color: #56362c;
+      margin-bottom: 0;
+  }
+  
+  .tab_content {
+      width: 100%;
+      /* max-width: 50%; */
+      margin: auto;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      text-transform: capitalize;
+  }
+  
+  .tab-content-slide.active .slick-track>* {
+      margin-inline: 8px;
+  }
+  
+  .tab-content-slide.active .slick-track {
+      display: flex;
+  }
+  
+  .tab_content .slick-next {
+      display: none !important;
+  }
+  .tab_content .slick-prev {
+      display: none !important;
+  }
+  
+  .tab-content-slide.active {
+      display: block !important;
+  }
+  
+  .tab-content-slide {
+      display: none !important;
+  }
+  
+  
+  </style>
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var alltab = document.querySelectorAll('.cus_tab');
+    var tabcontent = document.querySelectorAll('.tab_content div');
+  
+    alltab.forEach((element) => {
+      element.addEventListener("click", function () {
+        var attributeget = element.getAttribute('data-tabdata');
+  
+        tabcontent.forEach((ele) => {
+          var tabcontentId = ele.getAttribute('id');
+          if (attributeget === tabcontentId) {
+            ele.classList.add('active');
+            if ($(ele).find('.tab-content-slide').hasClass('slick-initialized')) {
+              $('.tab-content-slide').slick('refresh'); // Refresh slick slider within the active tab content
+            } else {
+              $('.tab-content-slide').slick(); // Initialize slick slider within the active tab content
+            }
+          } else {
+            ele.classList.remove('active');
+            $(ele).find('.tab-content-slide').slick('unslick'); // Destroy slick slider within inactive tab content
+          }
+        });
+        
+        // Remove active class from previously active tabs
+        alltab.forEach(tab => {
+          if (tab !== element && tab.classList.contains('active')) {
+            tab.classList.remove('active');
+          }
+        });
+      });
+    });
+  });
+  
+  
+  
+  
+  
+  
+  $('.tab-content-slide').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    centerMode: true,
+    centerPadding: '60px',
+  });
+  
+  </script>
+  
+  
+  
+  
+  
+  {%- schema -%}
+    {
+      "name": "Tab Section New",
+        "settings": [
+        {
+        "type": "text",
+        "id": "heading_section",
+        "label": "Heading"
+      }
+      ],
+      "blocks": [
+       {
+         "name": "Slide",
+         "type": "slide",
+         "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+  
+         ]
+       }
+    ],
+      "presets": [
+        {
+          "name": "New Tab Section"
+        } 
+      ]
+    }
+  {%- endschema -%}
+
+  ///////////////////////////////////////////
