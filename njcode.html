@@ -1447,3 +1447,302 @@
   {%- endschema -%}
 
   //////////////////////////////////////////
+
+  ========= Double slider 2 ====================
+
+  <section class="double-image_slider">
+    <div class="double_container">
+      <div class="Left_image">
+        {% for block in section.blocks %}
+          {% for product in block.settings.collection.products %}
+            {% if product.featured_image != blank %}
+              <div class="l-img">
+                <img src="{{ product.featured_image |  img_url: 'master' }}" alt="">
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <!-- Left image -->
+  
+      <div class="Right_image">
+        {% for block in section.blocks %}
+          {% for product in block.settings.collection.products %}
+            {% if product.featured_image != blank %}
+              <div class="r-img">
+                <div class="right_content">
+                  {% if section.settings.subheading != blank %}
+                    <h6>{{ section.settings.subheading }}</h6>
+                  {% endif %}
+                  {% if section.settings.title != blank %}
+                    <h2>{{ section.settings.title }}</h2>
+                  {% endif %}
+                </div>
+                <img class="v-left-img" src="{{ product.featured_image |  img_url: 'master' }}" alt="">
+                <div class="product_contnet">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                  <span>{{ product.price | money }}</span>
+                </div>
+                <div class="variant_images">
+                  {% assign processed_colors = '' %}
+                  {% for option in product.options_by_name.color.values %}
+                    {% for variant in product.variants %}
+                      {% if variant.title contains option %}
+                        {% unless processed_colors contains option %}
+                          {% assign processed_colors = processed_colors | append: option | append: ',' %}
+                          {% if variant.featured_image != blank %}
+                            <span class="var_img">
+                              <img src="{{ variant.featured_image | img_url: 'master' }}" alt="">
+                            </span>
+                          {% endif %}
+                        {% endunless %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+  <style>
+        .double_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #EFE6D2;
+            /* border:1px solid brown; */
+            width: 100%;
+        }
+  
+             span.var_img img {
+                  height: 100%;
+                  width: 100%;
+                  max-width: 50px;
+                  max-height: 50px;
+                  border-radius: 50%;
+                  margin: auto;
+                  border: 1px solid #cdc1c1;
+                  padding: 5px;
+                   object-fit: cover;
+                  aspect-ratio: 3 / 3;
+              }
+  
+            .variant_images {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap:wrap;                                                                                                                                                   fle
+            }
+  
+            .right_content {
+                text-align: center;
+            }
+  
+            .Left_image,.Right_image {
+                display: flex;
+                /* overflow-x: auto; */
+                /* max-width: 50%; */
+            }
+  
+            .Left_image {
+              margin-left:0 !important;
+            }
+  
+            .Left_image>* {
+                flex: 0 0 100%;
+            }
+  
+            .product_contnet a {
+                color: black;
+                text-decoration: none;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 18px;
+            }
+  
+            .product_contnet span {
+                color: black;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+  
+            .product_contnet {
+                max-width: 50%;
+                margin: auto;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                margin-top: 10px;
+            }
+  
+            .Right_image>*{
+                flex: 0 0 100%;
+            }
+  
+            .r-img{
+              /* background:#EFE6D2; */
+            }
+  
+  
+            .l-img img,.r-img img {
+                height: 100%;
+                width: 100%;
+                display: block;
+            }
+  
+            .r-img img {
+                max-width: 50%;
+                margin: auto;
+                border-radius: 10px;
+            }
+  
+            .right_content h2 {
+                font-size: 50px;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-top: 0;
+            }
+  
+  
+            .double_container>* {
+                /* margin-inline: 8px; */
+                /* flex: 0 0 50%; */
+  
+            }
+  
+            span.var_img {
+              cursor: pointer;
+          }
+  
+            .right_content h6 {
+                font-size: 20px;
+                font-weight: 600;
+                text-transform: capitalize;
+                margin-bottom: 0;
+                margin-top: 0;
+  
+            }
+  
+            .Left_image {
+                /* padding: 20px 10px 10px; */
+                width: 100%;
+                background-color:white;
+                /* margin:10px; */
+            }
+  
+      @media only screen and (min-width:768px){
+  
+         .Left_image,.Right_image{
+            max-width: 50%;
+         }
+  
+      }
+  
+     @media only screen and (min-width:1025px){
+  
+     }
+  
+      @media only screen and (max-width:1024px){
+  
+         .Left_image,.Right_image{
+            max-width:100%;
+         }
+        .double_container{
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+  
+        .r-img {
+        padding: 1rem;
+    }
+  
+      }
+  </style>
+  
+  <script>
+      $('.Left_image').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        speed: 1000,
+      //   fade: true,
+        asNavFor: '.Right_image'
+      });
+      $('.Right_image').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        asNavFor: '.Left_image',
+        dots:false,
+        arrows: false,
+        speed:1000,
+      //   centerMode: true,
+        focusOnSelect: true
+      });
+  
+  
+      document.querySelectorAll('.var_img').forEach((element) => {
+      element.addEventListener('click', function (e) {
+        var imagesrc = element.querySelector('img').getAttribute('src');
+        element.closest(".r-img").querySelector('img').setAttribute('src', imagesrc);
+  
+        // var bigimg = document.querySelectorAll(".l-img img");
+        // bigimg.forEach((element) => {
+        //   element.setAttribute('src', imagesrc);
+        // });
+      });
+    });
+  </script>
+  
+  {%- schema -%}
+    {
+      "name": "Double Slider",
+        "settings": [
+        {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subeading"
+         },
+        {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+         }
+      ],
+    "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+        {
+          "type": "image_picker",
+          "id": "left_img",
+          "label": "Left image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Right_img",
+          "label": "Right image"
+        },
+        {
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection"
+        }
+  
+       ]
+     }
+  ],
+      "presets": [
+        {
+          "name": "Double Slider"
+        }
+      ]
+    }
+  {%- endschema -%}
+
+  ///////////////
