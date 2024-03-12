@@ -2159,3 +2159,221 @@ window.addEventListener('load', () => {
         {%- endschema -%}
 
 ///////////////////////////////////////////////////////////////////
+
+=========== Counter section =================================
+<section class="counter_section ">
+    <div class="counter_container page-width">
+        <div class="counter_content">
+            <p class="fresh">FRESH FLAVOURED FOOD</p>
+            <h2>Up To 25% Off Discounts</h2>
+            <div class="icon-content">
+                <p>Cat Food</p>
+                <p>Dog Food</p>
+                <p>Rodents Food</p>
+            </div>
+        </div>
+        <div class="counter_image">
+            <img src="https://petzy-pets-food.myshopify.com/cdn/shop/files/offer-cms_9b8f82ab-b7e3-4758-b72f-8f5b73ad5765.webp?v=1708581815&width=1920" alt="">
+        </div>
+        <div class="counter_timer">
+            <p>Hurry up limited-time offer</p>
+            <div class="watch" id="days-counter">
+                <span class="watch_span"><span id="days">323</span><span>DAY</span></span>
+                </div>
+                <div class="watch" id="hours-counter">
+                <span class="watch_span"><span id="hours">6</span><span>Hours</span></span>
+                </div>
+                <div class="watch" id="minutes-counter">
+                <span class="watch_span"><span id="minutes">46</span><span>Min</span></span>
+                </div>
+                <div class="watch" id="seconds-counter">
+                <span class="watch_span"><span id="seconds">1</span><span>Second</span></span>
+                </div>
+            <a href="">Shop now</a>
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+    
+
+
+
+</script>
+
+
+
+<style>
+
+.counter_container>* {
+    flex: 0 0 33%;
+}
+
+.watch {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+span.watch_span span:first-child {
+    font-size: 40px;
+}
+
+.watch span {
+    font-weight: 600;
+    color: #415B80;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.counter_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10rem 40px;
+}
+
+.counter_section {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/bg-pattern.webp?v=1710244317');
+    position: relative;
+}
+
+.counter_section::after{
+    background: white;
+    -webkit-mask-image: url('https://petzy-pets-food.myshopify.com/cdn/shop/files/slider-curve.png?v=1690526352');
+}
+
+.counter_section::after{
+    content: "";
+    position: absolute;
+    height: 90px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.counter_timer {
+    text-align: center;
+    padding: 30px;
+}
+
+.counter_content {
+    padding: 30px;
+}
+
+.counter_image {
+    padding: 30px;
+}
+
+.counter_timer a {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    background: #FF8080;
+    padding: 5px 20px;
+    display: inline-block;
+    border-radius: 100px;
+    margin-top: 5rem;
+}
+
+
+.counter_timer p {
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #415B80;
+    text-align: center;
+}
+
+.icon-content p {
+    font-size: 22px;
+    margin: 0;
+    color: #415B80;
+    font-weight: 600;
+}
+
+.counter_image img {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+
+.counter_content p {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+p.fresh {
+    background: white;
+    border-radius: 100px;
+    text-align: center;
+    padding: 10px;
+}
+
+.counter_content h2 {
+    font-size: 50px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #FF8080;
+    line-height: 50px;
+}
+
+
+</style>
+
+
+
+
+{% schema %}
+{
+  "name": "Counter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_section",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "inner_heading_section",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "inner_paragraph_section",
+          "label": "Paragraph"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Counter-section"
+    }
+  ]
+}
+
+{% endschema %}
+
+//////////////////////////////////////////////////////////////
