@@ -1746,3 +1746,416 @@
   {%- endschema -%}
 
   ///////////////
+
+  ================= Popup ======================================
+  <section class="popup-container">
+
+    <div class="opacity_div">
+        <div class="popup_div">
+            <div class="popup_image">
+                <img src="https://cdn.shopify.com/s/files/1/0582/4433/3777/files/Untitled-1.webp?v=1709704394" alt="popup">
+            </div>
+            <div class="popup_content">
+                <div class="popup_title">
+                    <h2>Join the our family</h2>
+                </div>
+                <div class="popup_text">
+                    Sign up for our newsletter and receive updates you're looking for: interior inspiration, the latest trends and discounts
+                </div>
+                <div class="popup_input">
+                    <input type="text" placeholder="Enter your email">
+                </div>
+            </div>
+            <div class="close_image">
+                <img src="https://cdn.shopify.com/s/files/1/0582/4433/3777/files/close.png?v=1710157377" alt="close">
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+
+/* body .popup-container{
+    display: none;
+    
+} */
+
+.new-class .popup_div {
+    display: flex;
+    justify-content: flex-start;
+    transition: all 3.5s ease-in-out;
+}
+
+.popup-container.popup_active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    background: rgba(0,0,0,0.5);
+    transition: all 0.5s ease-in-out;
+}
+
+.popup_div {
+    display:flex;
+    justify-content: center;
+    width: 100%;
+    max-width:100%;
+    margin: auto;
+    align-items: center;
+    background: white;
+    position: relative;
+    height:auto;
+    max-height: 80%;
+    top: -150%;
+    transition: all 1s ease-in-out;
+    /* opacity: 0;
+    visibility: hidden;
+    pointer-events: none; */
+}
+
+.popup_active .popup_div{
+    top: 0;
+    /* opacity: 1;
+    visibility:visible;
+    pointer-events:all; */
+    transition: all 1s ease-in-out;
+} 
+
+.popup_image img {
+    height: auto;
+    width: 100%;
+    display: block;
+    /* object-fit: cover;
+    aspect-ratio: 3/2; */
+}
+
+.popup_content {
+    display: block;
+    height: 100%;
+    padding: 20px;
+}
+
+.popup_title h2 {
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.popup_text {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.popup_input input {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid black;
+    padding: 1rem 0.5rem;
+}
+
+.close_image {
+    max-width: 50px;
+    max-height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.close_image img {
+    height: 100%;
+    width: 100%;
+    -webkit-animation: mymove 5s ease-in-out infinite;
+    animation: mymove 5s ease-in-out infinite;
+}
+
+.opacity_div {
+    max-width: 90%;
+}
+
+@media only screen and (max-width:767px){
+
+.popup_div{
+    flex-direction: column;
+    /* max-width: 90%; */
+}
+
+.popup_image{
+    width: 100%;
+}
+
+}
+
+
+
+@media only screen and (min-width:1024px){
+
+.opacity_div {
+    max-width:50%;
+}
+
+
+}
+
+
+
+
+@media only screen and (min-width:768px){
+
+.popup_content {
+    text-align: center;
+    width: 100%;
+    max-width: 50%;
+}
+
+.popup_image {
+    width: 100%;
+    max-width: 50%;
+}
+
+}
+
+@keyframes mymove {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    90% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+
+.popup_input input:focus-visible{
+    outline: none;
+    box-shadow: none;
+    outline-offset: none;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+}
+
+
+
+/* .popup_div>* {
+    flex: 0 0 50%;
+} */
+
+/* .popup_content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+} */
+
+
+
+</style>
+
+
+
+{% comment %} <script>
+
+const popupContainer = document.querySelector('.popup-container');
+const closeButton = document.querySelector('.close_image');
+const popupdiv = document.querySelector('.popup_div');
+
+closeButton.addEventListener('click', () => {
+    // popupContainer.style.display = 'none';
+    popupContainer.classList.remove('new-class');
+    setTimeout(() => {
+        popupContainer.classList.remove('popup_active');
+        // popupContainer.style.display = 'none';
+    }, 1000); // 10000 milliseconds = 10 seconds
+    
+});
+
+// Function to show the popup
+function showPopup() {
+    popupContainer.style.display = 'flex';
+    // popupdiv.style.display = 'flex';
+    popupContainer.classList.add('popup_active');
+}
+
+// Function to add new class after 10 seconds
+function addNewClass() {
+    setTimeout(() => {
+        popupContainer.classList.add('new-class');
+    }, 1000); // 10000 milliseconds = 10 seconds
+}
+
+// Event listener for window load
+window.addEventListener('load', () => {
+    showPopup();
+    addNewClass();
+});
+
+
+</script> {% endcomment %}
+
+///////////////////////////////////////////////////
+
+========= Tab section ======================
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Section</title>
+  <style>
+    .tab-button_row {
+      display: flex;
+      gap: 15px;
+      background-color: #000;
+      padding: 20px;
+    }
+    button.tab-button {
+      padding: 20px;
+      width: 100%;
+      max-width: 32%;
+      cursor: pointer;
+    }
+    .tab.content_section {
+      text-align: center;
+    }
+    .tab_content-- {
+    width: 100%;
+    color: black;
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 2s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.tab_content--.tab_content_active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    height: 100%;
+    position: relative;
+    transition: all 2s ease-in-out;
+}
+
+    .tab_section_main {
+      max-width: 50%;
+      margin: auto;
+    }
+
+    a.tab_abtn {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab_section_main">
+    <div class="tab-section-row">
+      <div class="tab-button_row">
+        {% for block in section.blocks %}
+          {% if block.settings.Title != blank %}
+            <button class="tab-button" data-language="{{ forloop.index }}">{{ block.settings.Title }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="tab content_section">
+        {% for block in section.blocks %}
+          <div id="tab-{{ forloop.index }}" class="tab_content-- {% if forloop.first %} tab_content_active {% endif %}">
+            {% if block.settings.paragraph != blank %}
+              <span>{{ block.settings.paragraph }}</span>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          var language = this.getAttribute('data-language');
+          var contents = document.querySelectorAll('.tab_content--');
+          contents.forEach(function(content) {
+            content.classList.remove('tab_content_active');
+          });
+          var activeContent = document.getElementById('tab-' + language);
+          activeContent.classList.add('tab_content_active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+{%- schema -%}
+    {
+        "name": "Multi Coloum",
+         "settings": [
+          {
+          "type": "text",
+          "id": "heading_section",
+          "label": "Heading"
+          }   
+        ],
+        "blocks": [
+        {
+        "name": "Slide",
+        "type": "slide",
+        "settings": [
+            {
+            "type": "text",
+            "id": "Title",
+            "label": "Title"
+            },
+            {
+            "type": "richtext",
+            "id": "paragraph",
+            "label": "Paragraph"
+            }
+        ]
+            }
+            ],
+        "presets": [
+        {
+            "name": "Tab-dicription"
+        } 
+        ]
+        }
+        {%- endschema -%}
+
+///////////////////////////////////////////////////////////////////
