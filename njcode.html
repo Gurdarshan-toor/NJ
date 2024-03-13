@@ -2162,43 +2162,87 @@ window.addEventListener('load', () => {
 
 =========== Counter section =================================
 <section class="counter_section ">
-    <div class="counter_container page-width">
-        <div class="counter_content">
-            <p class="fresh">FRESH FLAVOURED FOOD</p>
-            <h2>Up To 25% Off Discounts</h2>
-            <div class="icon-content">
-                <p>Cat Food</p>
-                <p>Dog Food</p>
-                <p>Rodents Food</p>
-            </div>
-        </div>
-        <div class="counter_image">
-            <img src="https://petzy-pets-food.myshopify.com/cdn/shop/files/offer-cms_9b8f82ab-b7e3-4758-b72f-8f5b73ad5765.webp?v=1708581815&width=1920" alt="">
-        </div>
-        <div class="counter_timer">
-            <p>Hurry up limited-time offer</p>
-            <div class="watch" id="days-counter">
-                <span class="watch_span"><span id="days">323</span><span>DAY</span></span>
-                </div>
-                <div class="watch" id="hours-counter">
-                <span class="watch_span"><span id="hours">6</span><span>Hours</span></span>
-                </div>
-                <div class="watch" id="minutes-counter">
-                <span class="watch_span"><span id="minutes">46</span><span>Min</span></span>
-                </div>
-                <div class="watch" id="seconds-counter">
-                <span class="watch_span"><span id="seconds">1</span><span>Second</span></span>
-                </div>
-            <a href="">Shop now</a>
-        </div>
-    </div>
+  <div class="counter_container page-width">
+      <div class="counter_content">
+          <p class="fresh">FRESH FLAVOURED FOOD</p>
+          <h2>Up To 25% Off Discounts</h2>
+          <div class="icon-content">
+             <span>
+              <img src="https://cdn.shopify.com/s/files/1/0582/4433/3777/files/untitled.png?v=1710305657" alt=""><p>Cat Food</p>
+             </span> 
+             <span>
+                 <img src="https://cdn.shopify.com/s/files/1/0582/4433/3777/files/untitled.png?v=1710305657" alt=""><p>Dog Food</p>
+             </span>
+             <span>
+                 <img src="https://cdn.shopify.com/s/files/1/0582/4433/3777/files/untitled.png?v=1710305657" alt=""><p>Rodents Food</p>
+             </span>
+          </div>
+      </div>
+      <div class="counter_image">
+          <img src="https://petzy-pets-food.myshopify.com/cdn/shop/files/offer-cms_9b8f82ab-b7e3-4758-b72f-8f5b73ad5765.webp?v=1708581815&width=1920" alt="">
+      </div>
+      <div class="counter_timer">
+          <p>Hurry up limited-time offer</p>
+          <div class="watch-container">
+              <div class="watch" id="days-counter">
+              <span class="watch_span"><span id="days">323</span><span>DAY</span></span>
+              </div>
+              <div class="watch" id="hours-counter">
+              <span class="watch_span"><span id="hours">6</span><span>Hours</span></span>
+              </div>
+              <div class="watch" id="minutes-counter">
+              <span class="watch_span"><span id="minutes">46</span><span>Min</span></span>
+              </div>
+              <div class="watch" id="seconds-counter">
+              <span class="watch_span"><span id="seconds">1</span><span>Second</span></span>
+              </div>
+          </div>
+          <a href="">Shop now</a>
+      </div>
+  </div>
 
 </section>
 
 <script>
 
-    
+  
+function countdown() {
+      var daysElement = document.getElementById("days");
+      var hoursElement = document.getElementById("hours");
+      var minutesElement = document.getElementById("minutes");
+      var secondsElement = document.getElementById("seconds");
 
+      var days = parseInt(daysElement.textContent);
+      var hours = parseInt(hoursElement.textContent);
+      var minutes = parseInt(minutesElement.textContent);
+      var seconds = parseInt(secondsElement.textContent);
+
+      if (seconds > 0) {
+          seconds--;
+      } else {
+          seconds = 59;
+          if (minutes > 0) {
+              minutes--;
+          } else {
+              minutes = 59;
+              if (hours > 0) {
+                  hours--;
+              } else {
+                  hours = 23;
+                  if (days > 0) {
+                      days--;
+                  }
+              }
+          }
+      }
+
+      daysElement.textContent = days;
+      hoursElement.textContent = hours;
+      minutesElement.textContent = minutes;
+      secondsElement.textContent = seconds;
+  }
+
+  setInterval(countdown, 1000);
 
 
 </script>
@@ -2208,125 +2252,187 @@ window.addEventListener('load', () => {
 <style>
 
 .counter_container>* {
-    flex: 0 0 33%;
+  flex: 1 0 33%;
+}
+
+.icon-content span {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.icon-content span img {
+  height: 100%;
+  width: 100%;
+  max-width: 30px;
+  display: block;
 }
 
 .watch {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.watch-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
 }
 
 span.watch_span span:first-child {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .watch span {
-    font-weight: 600;
-    color: #415B80;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    border-radius: 10px;
-    width: 100%;
+  font-weight: 600;
+  color: #415B80;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
 }
 
 .counter_container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10rem 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10rem 40px;
+  align-items: center;
 }
 
 .counter_section {
-    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/bg-pattern.webp?v=1710244317');
-    position: relative;
+  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/bg-pattern.webp?v=1710244317');
+  position: relative;
 }
 
 .counter_section::after{
-    background: white;
-    -webkit-mask-image: url('https://petzy-pets-food.myshopify.com/cdn/shop/files/slider-curve.png?v=1690526352');
+  background: white;
+  -webkit-mask-image: url('https://petzy-pets-food.myshopify.com/cdn/shop/files/slider-curve.png?v=1690526352');
 }
 
 .counter_section::after{
-    content: "";
-    position: absolute;
-    height: 90px;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
+  content: "";
+  position: absolute;
+  height: 90px;
+  width: 100%;
+  bottom:-1px;
+  left: 0;
+  right: 0;
+  z-index: 0;
 }
 
 .counter_timer {
-    text-align: center;
-    padding: 30px;
+  text-align: center;
+  padding: 30px;
 }
 
 .counter_content {
-    padding: 30px;
+  padding: 30px;
 }
 
 .counter_image {
-    padding: 30px;
+  padding: 30px;
 }
 
 .counter_timer a {
-    text-decoration: none;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: white;
-    background: #FF8080;
-    padding: 5px 20px;
-    display: inline-block;
-    border-radius: 100px;
-    margin-top: 5rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  background: #FF8080;
+  padding: 5px 20px;
+  display: inline-block;
+  border-radius: 100px;
+  margin-top: 5rem;
 }
 
 
 .counter_timer p {
-    font-weight: 600;
-    text-transform: capitalize;
-    color: #415B80;
-    text-align: center;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #415B80;
+  text-align: center;
 }
 
 .icon-content p {
-    font-size: 22px;
-    margin: 0;
-    color: #415B80;
-    font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+  color: #415B80;
+  font-weight: 600;
 }
 
 .counter_image img {
-    height: 100%;
-    width: 100%;
-    display: block;
+  height: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 
 .counter_content p {
-    font-weight: 600;
-    text-transform: uppercase;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 p.fresh {
-    background: white;
-    border-radius: 100px;
-    text-align: center;
-    padding: 10px;
+  background: white;
+  border-radius: 100px;
+  text-align: center;
+  padding: 10px;
 }
 
 .counter_content h2 {
-    font-size: 50px;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #FF8080;
-    line-height: 50px;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #FF8080;
+  line-height: 50px;
 }
+
+
+@media only screen and (max-width:767px){
+
+.counter_container>* {
+  flex: 1 0 100%;
+}
+
+.watch span{
+  width: 80px;
+}
+
+.counter_timer{
+  display: contents;
+}
+
+.counter_image{
+  padding: 0;
+}
+
+.counter_content{
+  padding-inline: 0;
+}
+
+.counter_content {
+  order: 0;
+}
+
+.counter_image {
+  order: 3;
+}
+
+.counter_timer {
+  order: 2;
+}
+
+}
+
 
 
 </style>
@@ -2336,42 +2442,42 @@ p.fresh {
 
 {% schema %}
 {
-  "name": "Counter",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading_section",
-      "label": "Heading"
-    }
-  ],
-  "blocks": [
-    {
-      "name": "Slide",
-      "type": "slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "logo_image",
-          "label": "Logo image"
-        },
-        {
-          "type": "text",
-          "id": "inner_heading_section",
-          "label": "Heading"
-        },
-        {
-          "type": "richtext",
-          "id": "inner_paragraph_section",
-          "label": "Paragraph"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Counter-section"
-    }
-  ]
+"name": "Counter",
+"settings": [
+  {
+    "type": "text",
+    "id": "heading_section",
+    "label": "Heading"
+  }
+],
+"blocks": [
+  {
+    "name": "Slide",
+    "type": "slide",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo_image",
+        "label": "Logo image"
+      },
+      {
+        "type": "text",
+        "id": "inner_heading_section",
+        "label": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "inner_paragraph_section",
+        "label": "Paragraph"
+      }
+    ]
+  }
+],
+"presets": [
+  {
+    "name": "Counter-section"
+  }
+]
 }
 
 {% endschema %}
