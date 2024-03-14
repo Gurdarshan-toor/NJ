@@ -2530,3 +2530,226 @@ p.fresh {
   border-radius:30px
 }
 /////////////////////////
+
+============== custom contact form ====================
+<section class="custom_contat_form_section page-width">
+  <div class="custom_form_container">
+      <div class="form_map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27507.90852847754!2d76.57283473723201!3d30.478920974517173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fdc7c202e6489%3A0xf2b1d67562f68349!2sRajpura%2C%20Punjab%20140401!5e0!3m2!1sen!2sin!4v1710413953225!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="form_content_container">
+          <div class="form_content">
+              <h2>Our Information</h2>
+              <p>Our web company consists of web programmers and designers with extensive experience in the web market. Each of us worked as hired worker to create templates for Magento, Shopify, Wordpress and others.</p>
+              <ul>
+                  <li>
+                      <div class="">Address</div>
+                      <p>1010-white street block, usa</p>
+                  </li>
+                  <li>
+                      <div class="">Phone</div>
+                      <p>+01 0123 456 789</p>
+                  </li>
+                  <li>
+                      <div class="">Email</div>
+                      <p>admin@gmail.com</p>
+                  </li>
+                  <li>
+                      <div class="">Open Hours</div>
+                      <p>Monday to friday 09:30 - 18:30 saturday & sunday 10:00 - 17:00</p>
+                  </li>
+              </ul>
+          </div>
+          <div class="custom_forms">
+              <div class="color-{{ section.settings.color_scheme }} gradient">
+                  <div class="contact section-{{ section.id }}-padding">
+                    {%- if section.settings.heading != blank -%}
+                      <h2 class="title title-wrapper--no-top-margin {{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h2>
+                    {%- else -%}
+                      <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
+                    {%- endif -%}
+                    {%- form 'contact', id: 'ContactForm', class: 'isolate' -%}
+                      {%- if form.posted_successfully? -%}
+                        <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>{% render 'icon-success' %} {{ 'templates.contact.form.post_success' | t }}</h2>
+                      {%- elsif form.errors -%}
+                        <div class="form__message">
+                          <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>{% render 'icon-error' %} {{ 'templates.contact.form.error_heading' | t }}</h2>
+                        </div>
+                        <ul class="form-status-list caption-large" role="list">
+                          <li>
+                            <a href="#ContactForm-email" class="link">
+                              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                            </a>
+                          </li>
+                        </ul>
+                      {%- endif -%}
+                      <div class="contact__fields">
+                        <div class="field">
+                          <input  placeholder="Name" class="field__input" autocomplete="name" type="text" id="ContactForm-name" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'templates.contact.form.name' | t }}">
+                          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+                        </div>
+                        <div class="field field--with-error">
+                          <input
+                            autocomplete="email"
+                            type="email"
+                            id="ContactForm-email"
+                            class="field__input"
+                            name="contact[email]"
+                            spellcheck="false"
+                            autocapitalize="off"
+                            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                            aria-required="true"
+                            {% if form.errors contains 'email' %}
+                              aria-invalid="true"
+                              aria-describedby="ContactForm-email-error"
+                            {% endif %}
+                            placeholder="{{ 'templates.contact.form.email' | t }}"
+                          >
+                          <label class="field__label" for="ContactForm-email">{{ 'templates.contact.form.email' | t }} <span aria-hidden="true">*</span></label>
+                          {%- if form.errors contains 'email' -%}
+                            <small class="contact__field-error" id="ContactForm-email-error">
+                              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                              <span class="form__message">{% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</span>
+                            </small>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                      <div class="field">
+                        <input type="tel" id="ContactForm-phone" class="field__input" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="{{ 'templates.contact.form.phone' | t }}">
+                        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+                      </div>
+                      <div class="field">
+                        <textarea
+                          rows="10"
+                          id="ContactForm-body"
+                          class="text-area field__input"
+                          name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                          placeholder="{{ 'templates.contact.form.comment' | t }}"
+                        >
+                          {{- form.body -}}
+                        </textarea>
+                        <label class="form__label field__label" for="ContactForm-body">{{ 'templates.contact.form.comment' | t }}</label>
+                      </div>
+                      <div class="contact__button">
+                        <button type="submit" class="button cus_btn">
+                          {{ 'templates.contact.form.send' | t }}
+                        </button>
+                      </div>
+                    {%- endform -%}
+                  </div>
+                </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% style %}
+  .form_map iframe {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+.form_content_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding:20px 0;
+}
+.form_content_container>* {
+  flex: 1 0 50%;
+  padding:16px;
+}
+.form_content h2 {
+  font-size: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #415B80;
+}
+.form_content p {
+  color: #6E7191;
+  font-weight: 600;
+  margin-top:0;
+}
+.form_content ul li {
+  list-style: none;
+  position:relative;
+}
+.form_content div {
+  color: #FF8080;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.custom_forms .field__input {
+  background: #F4F5FB;
+  margin:20px 0;
+  padding:16px;
+  border-radius:100px;
+}
+.custom_forms .field__input::placeholder {
+  color: #999; /* Placeholder text color */
+  font-style: italic; /* Placeholder text style */
+  /* Add any other styling you want for the placeholder text */
+}
+.custom_forms .field__label{
+  /* font-size:12px; */
+  line-height: 0.5;
+  color:#ff8080;
+  font-weight:600;
+}
+.contact__fields {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+.contact__button button {
+  border-radius: 100px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.contact__button button::after {
+  box-shadow:none;
+}
+.contact__button button:hover::after {
+  box-shadow:none !important;
+  border:none;
+}
+.form_content ul li::after {
+  content: url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/untitled.png?v=1710305657');
+  position: absolute;
+  left: -40px;
+  top: 0px;
+}
+{% endstyle %}
+{% schema %}
+  {
+    "name": "Contact-form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading_section",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Slide",
+        "type": "slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo_image",
+            "label": "Logo image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Contact form"
+      }
+    ]
+  }
+  {% endschema %}
+
+  //////////////////////////////
