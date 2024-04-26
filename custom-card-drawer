@@ -1,0 +1,475 @@
+<div  class="cart__drawer right-to-left-open">
+  <div class="cart__drawer-section">
+    <div class="cart__drawer-top">
+      <div class="cart__drawer-heading">
+        <div class="heading-text text-center">
+          <span class="cart_close cross">
+            <img src="https://cdn.shopify.com/s/files/1/0074/7654/3578/files/cross.png?v=1714116440" alt="">
+          </span>
+          <h2 class="top-text">{{ 'cart.general.title' | t }}</h2>
+          {% include 'icon-cart' %}
+        </div>
+        <div class="cv--shipping">
+          {% comment %} <span class="cv--free-shipping">Envío Express Gratis</span> {% endcomment %}
+        </div>
+      </div>
+    </div>
+    <div class="cart__drawer-center">
+    
+      {% if cart.item_count >= 1 %}
+      <form action="/cart" method="post" enctype="multipart/form-data" class="cart__drawer-form">
+        <div class="cart__drawer-item grid--uniform">
+          {% for item in cart.items %}
+          <div class="cart_items">
+            <div class="cart__items grid__item medium-up--one-third">
+              <div class="item__image">
+                <a href="{{ item.url }}">
+                  <img src="{{ item.image | img_url: '100x100' }}">
+                </a>
+              </div>
+            </div>
+            
+            <div class="cart__items grid__item medium-up--one-third">
+              <div class="cart_items-title">
+                <a href="{{ item.url }}">
+                  <p class="item__title">
+                    <strong>{{ item.product.title }}</strong>
+                  </p>
+                </a>
+              </div>
+              <div class="cart__item-price">
+                <strong>{{ item.final_line_price | money }}</strong>
+              </div>
+              <div class="remove__item">
+                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">Remove</a>
+              </div>
+            </div>
+            <div class="cart__items grid__item medium-up--one-third">
+              <div class="qtySelector">
+                <button type="button" id="m-btn" class="minus" value="-">
+                    <img src="https://cdn.shopify.com/s/files/1/0074/7654/3578/files/minimize-sign.png?v=1714125327" alt="">
+                </button>
+                <input type="text" name="updates[]" id="updates_{{ forloop.index }}" class="item-qty" pattern="[0-9]*" min="0" value="{{ item.quantity }}">
+                <button type="button" id="p-btn" class="plus" value="+">
+                    <img src="https://cdn.shopify.com/s/files/1/0074/7654/3578/files/plus_2.png?v=1714125327" alt="">
+                </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+
+        <div class="cart-drawer-checkout-button">
+            <div class="cart__drawer-bottom">
+                <span class="subtotal_text">{{ 'cart.general.subtotal' | t }}</span>
+                <span class="subtotal_price">{{ cart.total_price | money }}</span>
+              </div> 
+          <button type="submit" class="cdrawer-chekout-btn">
+            <span class="cart-chk-btn">{{ 'cart.general.checkout' | t }}</span>
+          </button>
+        </div>
+      </form>
+      {% else %}
+        
+      <div class="custom_empty_cart">
+        <a href="/index">Continue Shopping</a>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>
+
+=============== css style ============================================
+
+.cart__drawer {
+	display: block;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	z-index: 999999;
+	background: #fff;
+	-webkit-transition: all 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+	-moz-transition: all 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+	-ms-transition: all 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+	-o-transition: all 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+	transition: all 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+	max-width: 100%;
+	padding: 0 0px 30px;
+	overflow: auto;
+	right:-100%;
+	width:400px;
+	padding: 1rem;
+	margin-inline: 10px;
+}
+
+.cart__drawer-section .cart_items {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+p.item__title {
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+span.subtotal_price {
+    font-weight: 600;
+}
+
+a.cart__remove {
+    font-weight: 600;
+}
+
+.cart-drawer-checkout-button {
+    margin-top: 1rem;
+}
+
+.cart__drawer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+span.subtotal_text {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* .item__image img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    max-width: 70%;
+    margin: auto;
+} */
+
+.cart__drawer-section .qtySelector {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+span.cart_close {
+    cursor: pointer;
+}
+
+.cart__drawer-section .cart__drawer-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+.cart__drawer-section .cart__items {
+    padding: 0;
+}
+
+.cart__drawer-section div#gs__toggle-box {
+    display: none;
+}
+
+.heading-text.text-center {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.cv--show-cart__drawer:before{
+	position: fixed;
+	content: "";
+	background: rgba(0, 0, 0, 0.8);
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+}
+
+.custom_cart_btn {
+    width: 100% !important;
+}
+
+.custom_product_form {
+    padding: 0;
+}
+
+.custom_product_form .product-form__item{
+	margin-bottom: 20px;
+}
+
+
+.cart__drawer.show-cart__drawer {
+	-webkit-transform: translateX(-400px);
+	-moz-transform: translateX(-400px);
+	-ms-transform: translateX(-400px);
+	-o-transform: translateX(-400px);
+	transform: translateX(-400px);
+	right: -410px;
+}
+
+.cart__drawer-section {
+	height: 100%;
+	overflow: auto;
+	background:white;
+	overflow: hidden;
+}
+
+span.cross {
+	font-size: 18px;
+	cursor:pointer;
+}
+
+.item-qty {
+	width: 35px;
+	height: 28px;
+	text-align: center;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+.minus {
+	/* height: 22px;
+	width: 22px; */
+	line-height:100%;
+	/* padding-right: 13px; */
+	/* background: #1E2B5A;
+	color: white; */
+	background: none;
+	border: none;
+	/* border: 1px solid #000; */
+	/* padding-top: 2px; */
+	border-radius:50%;
+}
+
+a.cart__remove {
+	color: #c73948;
+	padding: 0;
+	border: none;
+	font-size: 10px;
+	display: inline-block;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+button.cdrawer-chekout-btn {
+	width: 100%;
+	font-weight: bold;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	padding: 12px 20px;
+	background: #1E2B5A;
+	border: 1px solid #1E2B5A;
+	color: white;
+}
+
+.plus{
+	/* height: 22px;
+	width: 22px; */
+	line-height:100%;
+	/* padding-left:5px; */
+	background:none;
+	border:none;
+	/* color: white; */
+	/* border-radius:50%; */
+	
+}
+.show-cart__drawer{
+	display: block;
+}
+.cart__drawer-top {
+	border-bottom: 1px solid #f7f8f9;
+}
+
+=================== js javascript ========================
+
+function updateQuantity(line,quantity) {
+    $.ajax({
+        type: 'POST',
+        url: '/cart/change',
+        data: 'quantity=' + quantity + '&line=' + line,
+        dataType: 'json',
+        success: function(cart) {
+        },
+      });
+  }
+  // ===============================================================================
+  // Fetch product to cart Drawer
+  $(document).ready(function() {
+    $('form[action="/cart/add"]').submit(function(e){
+      e.preventDefault();
+      var data = $(this).serialize();
+      var qty = 1;
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add',
+        data: data,
+        dataType: 'html',
+        success: function(response){
+          $('.cart__drawer-item').html($(response).find('.cart__drawer-item').html());
+          $('.cart__drawer').html($(response).filter('.cart__drawer').html()).addClass('show-cart__drawer');
+          $('.cart__drawer').addClass('show-cart__drawer');
+          $('body').addClass('cv--show-cart__drawer');
+          // $('cart-drawer').load(location.href + " #CartDrawer");
+          $('.site-header__cart').load(location.href + " .site-header__cart");
+  
+          $('.cross').click(function(){
+            $('.cart__drawer').removeClass('show-cart__drawer');
+          });
+  
+        }
+      });
+  
+    });
+  });
+  // ===============================================================================
+  
+  
+  $(document).ready(function() {
+  
+    // Cart Drawer Open On Click Cart Icon
+    $(document).on("click",".site-header__cart", function(e) {
+      e.preventDefault();
+      $('.cart__drawer').addClass('show-cart__drawer');
+      $('body').addClass('cv--show-cart__drawer');
+      console.log('codevibez');
+    });
+    // Cart Drawer Close On Click cross Icon
+    $(document).on("click",".cross",function() {
+      $('.cart__drawer').removeClass('show-cart__drawer');
+      $('body').removeClass('cv--show-cart__drawer');
+    });
+  //   Close Cart Drawer click anywhere
+    $(document).mouseup(function(e){
+      var container = $(".cart__drawer");
+      if (!container.is(e.target) && container.has(e.target).length === 0){
+        container.show();
+        $('.cart__drawer').removeClass('show-cart__drawer');
+        $('body').removeClass('cv--show-cart__drawer');
+      }
+    });
+    
+  });
+  
+  
+  
+  // ===============================================================================
+  
+  
+  $(document).ready(function() {
+    // Remove Item from Cart
+    $(document).on("click",".cart__remove",function(e) {
+      e.preventDefault();
+      var itemUrl = $(this).attr('href');
+      $.ajax({
+        url: itemUrl,
+        type:'GET',
+        dataType: 'html',
+        success: function(response){
+          $('.cart__drawer-item').html($(response).find('.cart__drawer-item').html());
+          $('.cart__drawer').html($(response).filter('.cart__drawer').html()); 
+          $('.site-header__cart').load(location.href + " .site-header__cart"); 
+        }
+      });
+    });
+  });
+  
+  // ===============================================================================
+  
+  
+  
+  
+  // Change In Quantity Selector
+  $(document).ready(function() {
+  
+    $(document).on("click",".plus",function() {
+      $(this).prev().val(+$(this).prev().val() + 1);
+      var data =  $(this).parents('form').serialize();
+      console.log(data);
+      var quantity = $(this).prev().val();
+      updateQuantity(data,quantity);
+      $.ajax({
+        type: 'POST',
+        url: '/cart/update',
+        data: data,
+        dataType: 'html',
+        success: function(response){
+          $('.cart__drawer-item').html($(response).find('.cart__drawer-item').html());
+          $('.cart__drawer').html($(response).filter('.cart__drawer').html());
+          $('.site-header__cart').load(location.href + " .site-header__cart");
+        }
+      });
+  
+    });
+  
+    $(document).on("click",".minus",function() {
+      if ($(this).next().val() > 0) {
+        $(this).next().val(+$(this).next().val() - 1);
+        var data =  $(this).parents('form').serialize();
+        var quantity = $(this).next().val();
+        updateQuantity(data,quantity);
+        $.ajax({
+          type: 'POST',
+          url: '/cart/update',
+          data: data,
+          dataType: 'html',
+          success: function(response){
+            $('.cart__drawer-item').html($(response).find('.cart__drawer-item').html());
+            $('.cart__drawer').html($(response).filter('.cart__drawer').html());
+            $('.site-header__cart').load(location.href + " .site-header__cart");
+          }
+        });
+      }
+    });
+  });
+  
+  
+  
+  
+    $(document).ready(function() {
+      $('form[action="/cart/add"]').submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        var $form = $(this);
+  
+        // Perform an AJAX request to add the product to the cart
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          data: $form.serialize(),
+          dataType: 'json',
+          success: function(response) {
+            // Reload the cart count in the site header
+            updateCartCount();
+          }
+        });
+      });
+  
+      // Function to update the cart count in the site header
+      function updateCartCount() {
+        $.ajax({
+          type: 'GET',
+          url: '/cart.js',
+          dataType: 'json',
+          success: function(response){
+            $('.cart__drawer-item').html($(response).find('.cart__drawer-item').html());
+            $('.cart__drawer').html($(response).filter('.cart__drawer').html());
+            // Update cart count display
+            var updatedCount = parseInt($('.cart-count').text()) + 1; // Example: Assuming cart count is displayed inside an element with class "cart-count"
+            $('.cart-count').text(updatedCount);
+          }
+          
+        });
+      }
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
