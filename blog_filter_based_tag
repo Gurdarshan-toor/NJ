@@ -1,0 +1,135 @@
+<div class="page-width">
+
+  {%- if section.settings.title != blank -%}
+    <header class="section-header{% if section.settings.view_all %}{% unless settings.type_headers_align_text %} section-header--with-link{% endunless %}{% endif %}">
+      <h2 class="section-header__title">
+        {{ section.settings.title | escape }}
+      </h2>
+      {%- if section.settings.view_all -%}
+        <a href="{{ blog.url }}"  class="btn btn--secondary btn--small section-header__link">{{ 'blogs.article.view_all' | t }}</a>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="ctm-blog">
+    {% if blog.tags.size > 0 %}
+      <div class="blog-filter">
+        
+        <button type="button" class="blog-filter--title tag-list__header" id="filter_header">
+          Filter by Tags: 
+          <svg width="12" height="12" aria-hidden="true" focusable="false" role="presentation" class="icon-chevron-down" viewBox="0 0 28 16"><path d="m1.57 1.59 12.76 12.77L27.1 1.59" stroke-width="2" stroke="#000" fill="none"></path></svg>
+        </button>
+        
+        <div class="list-group">
+          <ul id="BlogTagFilter" class="tag-list">
+
+            {% capture highlight %}{% endcapture %}
+                    
+            {% unless canonical_url contains 'tagged' %} 
+              {% capture highlight %}
+                style="font-weight: 700;color: #000;"
+              {% endcapture %}
+            {% endunless %}
+
+            <li>
+              <a href="{{ blog.url }}" class="tag__text" {{ highlight }}>
+                {{ 'All Topics' }}
+              </a>
+            </li>
+            {% for tag in blog.all_tags %}
+              
+              {% capture highlight %}{% endcapture %}
+
+              {% if canonical_url contains 'tagged' %} 
+                {% assign ar_tag = canonical_url |  split: 'tagged/' | last %}
+                {% assign tagg = tag | downcase %}
+                {% if ar_tag == tagg %}
+                  {% capture highlight %}
+                    style="font-weight: 700;color: #000;"
+                  {% endcapture %}
+                {% endif %}
+              {% endif %}
+
+              <li>
+                <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="tag__text" {{ highlight }}>
+                  {{ tag | capitalize }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+  
+    {%- unless blog.empty? or blog.articles.size == 0 -%}
+  
+      <div class="grid grid--uniform {{ section.settings.cst_blog_rapper }}">
+
+        {%- for article in blog.articles limit: section.settings.post_limit -%}
+
+          {% if canonical_url contains 'tagged' %} 
+
+            {% assign ar_tag = canonical_url |  split: 'tagged/' | last %}
+            {% for taggg in article.tags %}
+              {% assign ar_taggg = taggg | downcase %}
+              {% if ar_taggg == ar_tag %}
+                {%- render 'article-grid-item',
+                  blog: blog,
+                  article: article,
+                  grid_item_width: 'medium-up--one-third',
+                  per_row: '3',
+                  image_size: section.settings.blog_image_size
+                -%}  
+              {% endif %}
+            {% endfor %}
+            
+          {% else %}
+            {%- render 'article-grid-item',
+              blog: blog,
+              article: article,
+              grid_item_width: 'medium-up--one-third',
+              per_row: '3',
+              image_size: section.settings.blog_image_size
+            -%}
+          {% endif %}
+        {%- endfor -%}
+      </div>
+  
+    {%- else -%}
+  
+      <div class="grid grid--uniform {{ section.settings.cst_blog_rapper }}">
+        {%- for i in (1..section.settings.post_limit) -%}
+          <div class="grid__item medium-up--one-third" data-aos="row-of-3">
+            <div class="grid">
+              <div class="grid__item small--one-third">
+                <a href="#" class="article__grid-image">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </a>
+              </div>
+              <div class="grid__item small--two-thirds">
+                <div class="article__grid-meta">
+                  {%- if section.settings.blog_show_date or article.tags.size > 0 or articles.comments_count > 0 -%}
+                    <div class="article__date">
+                      {%- if section.settings.blog_show_comments and article.comments_count > 0 -%}
+                        <a href="#">3 comments</a> &middot;
+                      {%- endif -%}
+                      {%- if section.settings.blog_show_date -%}
+                        Jul 17, {{ 'now' | date: "%Y" }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+  
+                  <a href="#" class="article__title">Example blog post</a>
+  
+                  {%- if section.settings.blog_show_author -%}
+                    <div class="article__author">by Archetype Themes</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+  
+    {%- endunless -%}
+  </div>
