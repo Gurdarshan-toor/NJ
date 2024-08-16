@@ -1,0 +1,75 @@
+<section class="main_section">
+  <div class="first_heading_div">
+    {%- if section.settings.heading_section !=blank -%}
+        <h1 class="heading">{{section.settings.heading_section}}</h1> 
+    {%- endif -%}
+  </div>
+  <div class="secound_heading_div">
+    {%- if section.settings.Secound_heading !=blank -%}
+      <h1 class="Secound_heading">{{section.settings.Secound_heading}}</h1> 
+  {%- endif -%}
+  </div>
+  
+    
+</section>
+
+<style>
+.heading
+{
+    color: black;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 3px solid black;
+    font-weight: bold;
+}
+.Secound_heading
+{
+  color: black;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 2px;
+}
+.main_section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+</style>
+
+
+
+
+
+{%- schema -%}
+    {
+        "name": "Custom section",
+         "settings": [
+          {
+          "type": "text",
+          "id": "heading_section",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "Secound_heading",
+          "label": "Secound Heading"
+        }
+        
+
+
+ 
+    ],
+    "presets": [
+      {
+        "name": "Custom section"
+      } 
+    ]
+    }
+    {%- endschema -%}
+

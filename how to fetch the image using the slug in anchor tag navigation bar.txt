@@ -1,0 +1,6 @@
+{% assign collection_hundle = link.url | split: '/' | last %}
+
+              {% if collections[collection_hundle].image.src !=blank %}
+              <div class="collection_img_title">
+                
+                 <a href="{{ link.url }}"><img class="collection_images" src="{{ collections[collection_hundle].image.src | img_url: 'master' }}" alt=""></a>

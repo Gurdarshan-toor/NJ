@@ -1,0 +1,99 @@
+<div class="vid">
+  <div class="vid__image"></div>
+  <div class="btn_or_video">
+    {% if section.settings.button_link != blank %}
+
+
+      <video
+        class="vid__video"
+        poster="https://images.pexels.com/photos/34407/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        controls>
+        <source src="
+                                                                    {{ section.settings.button_link }}
+                                                                    " type="
+                                                                    video/mp4"></video>
+
+      <div class="vid__play">Play</div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .btn_or_video {
+    position: relative;
+    display: inline-block;
+  }
+  .vid__video {
+    height: auto;
+    width: 100%;
+  }
+  .vid__play {
+    position: absolute;
+    top: 50%;
+    color: white;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+  }
+
+  &__play {
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+
+  &__video {
+    display: none;
+    &--show {
+      display: block;
+    }
+  }
+}
+</style>
+
+
+<script>
+  const play = document.getElementsByClassName('vid__play')[0];
+  const video = document.getElementsByTagName('video')[0];
+
+  play.addEventListener('click', () => {
+    video.classList.add('vid__video--show')
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+      video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+    }
+    video.play();
+  })
+</script>
+
+
+{%- schema -%}
+  {
+    "name": "video-full-screen-play",
+    "settings": [
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+
+    "presets": [
+      {
+        "name": "video-full-screen-play"
+      }
+    ]
+  }
+{%- endschema -%}

@@ -1,0 +1,8 @@
+ {
+        "name": "Multi Coloum",
+         "settings": [
+          {
+          "type": "text",
+          "id": "heading_section",
+          "label": "Heading"
+  }

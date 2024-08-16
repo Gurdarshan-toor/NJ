@@ -1,0 +1,3 @@
+   {% if product.metafields.custom.amazon_product_link %}
+                    <a  target="_blank" href="{{ product.metafields.custom.amazon_product_link }}" class="button button--full-width button--secondary">Buy Now On Amazon!</a>
+                  {% endif %}

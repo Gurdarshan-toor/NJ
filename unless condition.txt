@@ -1,0 +1,5 @@
+ {% unless product.available %} 
+            <div class="out_of_stock">
+                {{ settings.out_of_stock_text}}
+            </div>  
+          {% endunless %}

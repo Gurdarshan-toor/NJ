@@ -1,0 +1,6 @@
+   {% unless template.suffix == 'header-footer' %}
+      
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    {% endunless %}

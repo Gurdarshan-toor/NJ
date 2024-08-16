@@ -1,0 +1,35 @@
+// $(document).ready(function () {
+//     var imageElements = $('.cus_swatches_img');(variant btn)
+//     imageElements.click(function () {
+//         var imageSrc = $(this).attr('data-varimg');(get image src)
+//         $(this).closest(".custom_product_grid").find('.media_img').attr('srcset', imageSrc);(set image src)
+//         $(this).closest(".custom_product_grid").find('.media_img').attr('src', imageSrc);
+//     });
+// });
+
+
+
+
+
+         <div class="Custom_Swatches">
+          {% assign varImg = "" %}
+         {% for product_option in card_product.options_with_values %}
+          {% if product_option.name == 'Color' %}
+
+              {% for value in product_option.values %}
+                {% assign swatchImg = value | downcase | replace: ' ', '-' | append: '.jpg' | file_img_url %}
+
+                {% for variant in card_product.variants %}
+                  {% if varImg != variant.featured_image %}
+                    {% assign varImg = variant.featured_image %}
+                    <span class="cus_swatches_img" data-varimg="{{ variant.featured_image |  img_url: 'master' }}" style="background-image:url({{ swatchImg }});" ></span>
+                    {% break %}
+                  {% endif %}
+                  
+                {% endfor %}
+
+              {% endfor %}
+
+        {% endif %}
+        {% endfor %}
+        </div>

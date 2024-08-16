@@ -1,0 +1,10 @@
+// variant image change
+function variantImgHandle() {
+  document.querySelectorAll('.product-gallery-pagination .slick-slide img')?.forEach(img => {
+    if (img.src.includes(this.getAttribute('varimgid').split('.')[0])) {
+      img.click();
+      return;
+    }
+  });
+}
+document.querySelectorAll('[varimgid]')?.forEach(varImg => varImg.addEventListener('click', variantImgHandle));

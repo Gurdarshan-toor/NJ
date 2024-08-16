@@ -1,0 +1,1 @@
+ {% assign swatchImg = value | downcase | replace: ' ', '_' | append: '.png' | file_url %}

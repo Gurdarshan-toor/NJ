@@ -1,0 +1,8 @@
+ <div class="customloop">
+          {% for image in product.images %}
+
+          <img src="{{image | img_url:'medium'}}" alt="img">
+
+
+          {% endfor %}
+</div>

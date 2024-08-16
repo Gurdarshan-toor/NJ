@@ -1,0 +1,4 @@
+body:has( .shopify-section-header-sticky) .custom-images-with-text-sticky{
+                  /* transition: 0.2s; */
+                  padding-top: 90px;
+                }

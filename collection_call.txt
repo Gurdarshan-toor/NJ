@@ -1,0 +1,111 @@
+<section class="main_section">
+  <div class="main_div">
+
+    <h1 class="page_title">{{ page_title }}</h1>
+
+    <ul>
+
+      {%- for collection in collections -%}
+        <div class="rel">
+          <li>
+            {% assign collection_image = collection.image %}
+              {% if collection_image != blank %}
+              <h5 class="collection_title">
+                <a href="{{ collection.url }}">{{ collection.title }}</a>
+              </h5>
+              {% comment %} <p>{{ collection.description }}</p> {% endcomment %}
+              <div class="img_div">
+                <a href="{{ collection.url }}">
+
+                  <img src="{{ collection_image | img_url: '480x' }}" alt="">
+
+
+                </a>
+
+              </div>
+            {% endif %}
+            <div class="show_product">
+              {{ collection.all_products_count }} total products in this collection
+            </div>
+            {% comment %} <div class="discription">
+              <p>{{ collection.description }}</p>
+            </div> {% endcomment %}
+          </li>
+        </div>
+      {%- endfor -%}
+    </ul>
+
+
+  </div>
+</section>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+  }
+  .img_div {
+    height: 400px;
+    width: 400px;
+  }
+  img {
+    height: 100%;
+    width: 100%;
+  }
+  .show_product {
+    position: absolute;
+    /* top: 90%; */
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  .rel {
+    position: relative;
+  }
+  .rel li a {
+    text-decoration: none;
+    color: black;
+  }
+  .rel li {
+    list-style: none;
+  }
+  .collection_title {
+    padding: 20px;
+    text-align: center;
+  }
+  .page_title {
+    text-align: center;
+    text-transform: uppercase;
+  }
+</style>
+
+{%- schema -%}
+  {
+    "name": "call-collection",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading_section",
+        "label": "Heading"
+      }
+
+
+    ],
+    "presets": [
+      {
+        "name": "call-collection"
+      }
+    ]
+  }
+{%- endschema -%}

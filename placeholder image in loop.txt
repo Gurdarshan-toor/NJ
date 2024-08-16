@@ -1,0 +1,7 @@
+              {% assign placeholder_images = 'product-' %}
+              {% for i in (1..6) %}
+                {% assign product_number = i %}
+                <span class="{% cycle 'class1', 'class2', 'class3' %}">
+                  {{ placeholder_images | append: product_number | placeholder_svg_tag }}
+                </span>
+              {% endfor %}

@@ -1,0 +1,94 @@
+<section class="collectionmwsec">
+  <div class="container collection_main_part">
+    {% for blocks in section.blocks %}
+      <div class="collection_div">
+        {% for prd in blocks.settings.select_collection.products %}
+          <div class="collection-slider-mw">
+            <div class="titlewithurl">
+              <h2>
+                <a href="{{ blocks.settings.select_collection.url }}">{{ blocks.settings.select_collection.title }}</a>
+              </h2>
+            </div>
+            <div class="imagewithprice">
+              <a class="collection-slider-a" href="{{ prd.url }}">
+                {% if blocks.settings.collection_image != blank %}
+                  <img
+                    class="mx-auto collection-slider-img"
+                    src="{{ blocks.settings.collection_image | img_url: 'master' }}"
+                    alt="">
+                {% else %}
+                  <img
+                    class="slider-img"
+                    src="{{ prd.featured_image | img_url: 'master' }}"
+                    alt="">
+                {% endif %}
+                <h6>{{ prd.title }}</h6>
+                <h6 class="collection-pr">{{ prd.price | money_with_currency }}</h6>
+              </a>
+              <form
+                class=""
+                method="post"
+                action="/cart/add">
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ prd.variants.first.id }}" />
+                <input
+                  type="submit"
+                  value="Add to cart"
+                  class="collection-btn" />
+              </form>
+
+
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Shop by category1",
+    "settings": [
+
+      {
+        "type": "text",
+        "id": "c_text",
+        "label": "Collection Text",
+        "default": "Hello Collection"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "collection",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "collection_image",
+            "label": "Image"
+          }, {
+            "type": "collection",
+            "id": "select_collection",
+            "label": "Select collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop by category1"
+      }
+    ]
+  }
+{% endschema %}

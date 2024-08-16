@@ -1,0 +1,24 @@
+"blocks": [
+  {
+    "type": "button",
+    "name": "Button",
+    "settings": [
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ]
+  },
+  {
+    "type": "image",
+    "name": "Image slide",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+]

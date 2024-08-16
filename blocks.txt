@@ -1,0 +1,13 @@
+"blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        }
+       ]
+     }
+  ]

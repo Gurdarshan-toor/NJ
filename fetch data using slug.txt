@@ -1,0 +1,3 @@
+  {% assign pageHandle = childlink.url | split: '/' | last %}
+                            {% assign curPage = pages[pageHandle] %}
+                            {{ curPage.title }}

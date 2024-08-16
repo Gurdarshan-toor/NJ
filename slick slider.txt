@@ -1,0 +1,72 @@
+ 
+    <section>
+    <div class="main-slider">
+     
+      {% for block in section.blocks %}
+        {%- if block.settings.logo_image !=blank -%}
+            <div class="slide">
+              <img src="{{block.settings.logo_image | img_url:'master'}}" alt="">
+             </div>
+          {%- endif -%}
+        {% endfor %}
+    </div>
+    </section>
+
+    {%- schema -%}
+    {
+    "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        }
+       ]
+     }
+  ],
+    "presets": [
+      {
+        "name": "Slik-Slider-new"
+      } 
+    ]
+    }
+    {%- endschema -%}
+ 
+ 
+
+ <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  
+  .main-slider
+  {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .slide img
+  {
+  width:100%;
+   
+  }
+  .slide
+  {
+    margin: 0px 10px;
+  }
+</style>
+
+ <script>
+    $('.main-slider').slick({
+      infinite: true,
+      slidesToShow:3,
+      slidesToScroll: 4
+    });
+    
+</script>
+
+     

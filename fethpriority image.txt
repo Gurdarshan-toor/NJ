@@ -1,0 +1,1 @@
+<img fetchpriority="high" src="{{ image | img_url: '200x' }}" alt class="product-button-slide">

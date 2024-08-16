@@ -1,0 +1,179 @@
+
+    <div class="Heading_section">
+      <h2 class="SectionHeader__Heading Heading u-h1" style="text-align:{{section.settings.alignment}};font-size:{{section.settings.font_size}}px;padding-top:{{section.settings.Top_Padding}}px;padding-bottom:{{section.settings.bottom_Padding}}px;">{{section.settings.heading_section}}</h2>
+    </div>
+
+    <section class="main_section">
+      {% for block in section.blocks %}
+     
+        <div class="multi_colum"> 
+          {%- if block.settings.logo_image !=blank -%}
+            <div class="img_div">
+              <img src="{{block.settings.logo_image | img_url:'master'}}" alt="img">
+             </div>
+          {%- endif -%}
+          {%- if block.settings.inner_heading_section !=blank -%}
+            <div class="inner_heading_section">    
+              <h2 class="SectionHeader__Heading Heading u-h1">{{block.settings.inner_heading_section}}</h2>
+            </div>
+          {%- endif -%}
+         {%- if block.settings.inner_paragraph_section !=blank -%}
+          <div class="inner_paragraph_section">
+            <p class="ArticleItem__Excerpt">{{block.settings.inner_paragraph_section}}
+            </p>
+          </div>
+         {%- endif -%}
+        </div>
+      {% endfor %}
+    </section>
+    <style>
+      .main_section
+      {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .multi_colum
+      {
+        
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 0px 10px;
+       
+      }
+      .img_div {
+        
+        width: 100%;
+       }
+       .img_div img
+       {
+        max-width: 20%;
+        height: auto;
+        border-style: none;
+        vertical-align: top;
+        margin-bottom: 25px;
+      }
+      @media only screen and (min-width: 768px){
+      .multi_colum
+      {
+        flex: 1 1 49%;
+       
+       
+      }
+
+      }
+      @media only screen and (min-width: 1205px){
+        .multi_colum
+      {
+        flex: 1 1 24%;
+       
+       
+      }
+
+      }
+
+     
+     
+
+
+
+      
+
+    </style>
+ 
+    {%- schema -%}
+    {
+        "name": "Multi Coloum",
+         "settings": [
+          {
+          "type": "text",
+          "id": "heading_section",
+          "label": "Heading"
+        },
+        {
+        "type": "select",
+        "id": "alignment",
+        "label": "Heading Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "left"
+          },
+          {
+            "value": "center",
+            "label": "center"
+          },
+          {
+            "value": "Right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+        },
+      {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+      },
+      {
+        "type": "range",
+        "id": "Top_Padding",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "bottom_Padding",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "bottom padding",
+        "default": 16
+      }
+
+      ],
+    "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "inner_heading_section",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "inner_paragraph_section",
+          "label": "Paragraph"
+        }
+       ]
+     }
+  ],
+    "presets": [
+      {
+        "name": "Multi-Coloum"
+      } 
+    ]
+    }
+    {%- endschema -%}
+
+
+

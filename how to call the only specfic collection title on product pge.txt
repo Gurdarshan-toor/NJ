@@ -1,0 +1,1 @@
+  <a href="">{{product.collections[0].title | link_to:product.collections[0].url}}</a>

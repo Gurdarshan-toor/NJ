@@ -1,0 +1,62 @@
+
+
+{% if product.available %}
+<div class="collection-cart">
+    {% for variant in product.variants %}
+        <input type="hidden" id="variantid" value="{{ variant.id }}">
+    {% endfor %}
+    
+    <button class="Cart-btn" type="button" id="collection-cart{{ product.id }}">Add To Cart</button>
+  </div>
+
+  {% else %}
+    
+  <button class="Cart-btn" type="button" style="background-color: red; color:white">Sold Out</button>
+
+{% endif %}
+
+  <script>
+
+  function addOrUpdate(url, method, formobj) {
+        $.ajax({
+            type: method,
+            url: url,
+            cashe: false,
+            data : formobj,
+            dataType : "json",
+            success:function(data){
+                console.log('success');
+               
+                $('cart-drawer').removeClass('is-empty');
+                $('.drawer__inner-empty').hide();
+                $('cart-drawer').load(location.href + " #CartDrawer" );
+                $('#cart-icon-bubble').load(location.href + " #cart-icon-bubble" );
+                $('.drawer').addClass('active');
+                
+
+               
+            },
+            Error:function(xhr, ajaxOption, thrownError){
+                console.log('Error');
+            }   
+
+        });
+  }
+
+    $(document).on('click','#collection-cart{{ product.id }}', function(){
+        let getvariantid = $(this).parents('.collection-cart').find('#variantid').val();
+
+        let formobj = {
+            quantity : 1,
+            id : getvariantid
+        };
+        addOrUpdate("/cart/add.js","POST", formobj)
+    });
+
+
+  </script>
+
+
+
+this is a snippt 
+this snippt call to main-product 

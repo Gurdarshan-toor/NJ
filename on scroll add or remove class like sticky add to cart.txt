@@ -1,0 +1,12 @@
+   document.addEventListener("DOMContentLoaded", function () {
+      var addToCartContainer = document.querySelector(".sticky-cta");
+
+      window.addEventListener("scroll", function () {
+         // Adjust the value (100 in this example) based on when you want the button to appear
+         if (window.scrollY > 1500 ) {
+            addToCartContainer.classList.add("sticky-show");
+         } else {
+            addToCartContainer.classList.remove("sticky-show");
+         }
+      });
+   });

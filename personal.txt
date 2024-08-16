@@ -1,0 +1,38 @@
+{
+  "name": "Multi Coloum",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_section",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "inner_heading_section",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "inner_paragraph_section",
+          "label": "Paragraph"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multi-Coloum"
+    }
+  ]
+}

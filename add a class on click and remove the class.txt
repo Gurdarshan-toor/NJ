@@ -1,0 +1,15 @@
+var tab = document.getElementsByClassName("tab-anchor");
+
+$(document).ready(function() {
+  $(".custom-tab-wrapper ul li a").click(function() {
+    // event.preventDefault(); // Prevent the default link behavior
+
+    // Remove the "bold" class from all elements with class "tab-anchor"
+    for (let i = 0; i < tab.length; i++) {
+      const element = tab[i];
+      $(element).removeClass("bold");
+    }
+
+    // Add the "bold" class to the clicked anchor link
+    $(this).addClass("bold");
+  });

@@ -1,0 +1,11 @@
+var numberOfSlides = $('.collection_meta_img').find('.title-img').length;
+
+if (numberOfSlides <= 3) {
+    // Apply CSS styles here
+    $('.coll-img img').css({
+        // Specify your CSS styles as key-value pairs
+        'height': '350px',
+        'object-position': 'bottom'
+        // Add more CSS styles as needed
+    });
+}

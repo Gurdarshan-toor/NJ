@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Kinfolk';
+    src: url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.eot?v=1663051938'); 
+    src: url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.eot?v=1663051938') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.woff2?v=1663051948') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.woff?v=1663051938') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.ttf?v=1663051938') format('truetype'),
+        url('https://cdn.shopify.com/s/files/1/0582/4433/3777/files/KinfolkRegular.svg?v=1663051938') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+https://transfonter.org/

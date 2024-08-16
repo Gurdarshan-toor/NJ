@@ -1,0 +1,29 @@
+
+<div class="disclosure c-disclosure-country">...........paste on 8 line 
+
+{{ localization.country | image_url: width: 20 | image_tag }}.......paste on 16 line
+
+
+<span class="localization-form__currency">
+ {{ country | image_url: width: 20 | image_tag }}                 
+ {{- country.currency.iso_code }}
+ {{ country.currency.symbol }}
+ {{ country.name | prepend: "| " }}
+</span>.............replace with 35 line
+
+
+
+/* Customisations for country flags */
+
+.c-disclosure-country .localization-form__select img,
+.c-disclosure-country .disclosure__link img {
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.c-disclosure-country .localization-form__select span,
+.c-disclosure-country .localization-form__currency,
+.c-disclosure-country .disclosure__link {
+  display: inline-flex;
+  align-items: center;
+}..............paste this css in css file
